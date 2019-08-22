@@ -4,6 +4,6 @@
         <p class="lead">Nama saya <?= $nama; ?></p>
         <hr class="my-4">
         <p>Senang Berkenalan Denganmu</p>
-        <a class="btn btn-danger btn-lg" href="#" role="button">Klik Untuk Lebih</a>
+        <a class="btn btn-danger btn-lg" href="<?= base_url('about') ?>" role="button">Klik Untuk Lebih</a>
     </div>
 </div>
