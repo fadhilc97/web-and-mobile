@@ -9,7 +9,7 @@ class Siswa_model extends CI_Model {
 
     public function get_data_by_id($id){
         $where['id'] = $id;
-        return $this->db->get('siswa', $where);
+        return $this->db->get_where('siswa', $where);
     }
 
     public function insert_data($data){

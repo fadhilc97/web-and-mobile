@@ -14,6 +14,7 @@ class Siswa extends CI_Controller {
         
         $result = $this->siswa->get_all_data()->result();
         $data['result'] = $result;
+        $data['banyak_siswa'] = $this->siswa->get_all_data()->num_rows();
 
         $this->load->view('templates/header', $data);
         $this->load->view('siswa/index', $data);
@@ -34,6 +35,7 @@ class Siswa extends CI_Controller {
         ];
 
         $this->siswa->insert_data($data);
+        $this->session->set_flashdata('insert', 'success');
         redirect(base_url('siswa'));
     }
 
@@ -71,12 +73,14 @@ class Siswa extends CI_Controller {
         ];
 
         $this->siswa->update_data($data, $id);
+        $this->session->set_flashdata('update', 'success');
         redirect(base_url('siswa'));
 
     }
 
     public function hapus_siswa($id){
         $this->siswa->delete_data($id);
+        $this->session->set_flashdata('delete', 'success');
         redirect(base_url('siswa'));
     }
 
