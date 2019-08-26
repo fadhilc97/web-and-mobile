@@ -11,10 +11,10 @@ class Siswa extends CI_Controller {
     public function index(){
         $data['nama'] = 'Fadhil';
         $data['judul'] = 'Halaman Siswa';
-        
-        $result = $this->siswa->get_all_data()->result();
-        $data['result'] = $result;
-        $data['banyak_siswa'] = $this->siswa->get_all_data()->num_rows();
+        $keyword = $this->input->post('keyword');
+
+        $data['result'] = $this->siswa->search_data($keyword)->result();
+        $data['banyak_siswa'] = $this->siswa->search_data($keyword)->num_rows();
 
         $this->load->view('templates/header', $data);
         $this->load->view('siswa/index', $data);

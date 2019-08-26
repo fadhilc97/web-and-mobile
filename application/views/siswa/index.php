@@ -10,7 +10,7 @@
 
 	<div class="row mb-3">
 		<div class="col-lg-6">
-			<form action="" method="post">
+			<form action="<?= base_url('siswa'); ?>" method="post">
 				<div class="input-group">
 					<input type="text" class="form-control" placeholder="cari siswa.." name="keyword" id="keyword"
 						autocomplete="off">

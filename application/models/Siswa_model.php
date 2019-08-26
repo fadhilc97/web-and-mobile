@@ -12,6 +12,11 @@ class Siswa_model extends CI_Model {
         return $this->db->get_where('siswa', $where);
     }
 
+    public function search_data($keyword){
+        $this->db->like('nama', $keyword);
+        return $this->db->get('siswa');
+    }
+
     public function insert_data($data){
         return $this->db->insert('siswa', $data);
     }
