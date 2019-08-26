@@ -3,11 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Siswa extends CI_Controller {
 
+    function __construct(){
+        parent::__construct();
+        $this->load->model('Siswa_model', 'siswa');
+    }
+
     public function index(){
         $data['nama'] = 'Fadhil';
         $data['judul'] = 'Halaman Siswa';
         
-        $result = $this->db->get('siswa')->result();
+        $result = $this->siswa->get_all_data()->result();
         $data['result'] = $result;
 
         $this->load->view('templates/header', $data);
@@ -28,13 +33,12 @@ class Siswa extends CI_Controller {
             'jurusan' => $jurusan
         ];
 
-        $this->db->insert('siswa', $data);
+        $this->siswa->insert_data($data);
         redirect(base_url('siswa'));
     }
 
     public function info_siswa($id){
-        $where['id'] = $id;
-        $data['result'] = $this->db->get_where('siswa', $where)->result();
+        $data['result'] = $this->siswa->get_data_by_id($id)->result();
         $data['judul'] = 'Detail siswa';
 
         $this->load->view('templates/header', $data);
@@ -46,9 +50,7 @@ class Siswa extends CI_Controller {
     public function ubah_siswa($id){
         $data['judul'] = 'Ubah data siswa';
         $data['id'] = $id;
-
-        $where['id'] = $id;
-        $data['result'] = $this->db->get_where('siswa', $where)->result();
+        $data['result'] = $this->siswa->get_data_by_id($id)->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('siswa/ubah_siswa', $data);
@@ -61,7 +63,6 @@ class Siswa extends CI_Controller {
         $nisn = $this->input->post('nisn');
         $email = $this->input->post('email');
         $jurusan = $this->input->post('jurusan');
-        $where = [ 'id' => $id ];
         $data = [
             'nama' => $nama,
             'nisn' => $nisn,
@@ -69,15 +70,13 @@ class Siswa extends CI_Controller {
             'jurusan' => $jurusan
         ];
 
-        $this->db->update('siswa', $data, $where);
+        $this->siswa->update_data($data, $id);
         redirect(base_url('siswa'));
-
 
     }
 
     public function hapus_siswa($id){
-        $where = ['id' => $id];
-        $this->db->delete('siswa', $where);
+        $this->siswa->delete_data($id);
         redirect(base_url('siswa'));
     }
 
